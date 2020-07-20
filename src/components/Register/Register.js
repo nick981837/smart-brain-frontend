@@ -24,7 +24,7 @@ onPasswordChange = (event) =>{
 }
 
 onSubmitSignin = ()=>{
-  fetch('http://localhost:3000/register', {
+  fetch(' https://damp-sea-30110.herokuapp.com/register', {
     method: 'post', 
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
