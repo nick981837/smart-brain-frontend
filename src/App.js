@@ -96,6 +96,7 @@ calculateFaceLocation = (data)=>{
             body: JSON.stringify({
             id :this.state.user.id
         })
+            .catch(res.status(400.json('please input a picture')))
       })
 
       .then(response => response.json())
