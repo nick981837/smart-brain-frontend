@@ -2,7 +2,7 @@ import React from 'react';
 import BorderBox from './BorderBox';
 import './FaceRecognition.css';
 
-const FaceRecognition=({imageUrl, box}) =>{
+const FaceRecognition=({imageUrl, boxAll}) =>{
 return(
 	<div className='center ma'>
 	 <div className='absolute mt2'>

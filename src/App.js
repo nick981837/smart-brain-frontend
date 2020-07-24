@@ -62,7 +62,7 @@ calculateFaceLocation = (data)=>{
   const image = document.getElementById('inputimage');
   const width = Number(image.width);
   const height = Number(image.height);
-  const boxArr = clarifaiFace.map(region=>{
+  const boxArr = clarifaiFaceAll.map(region=>{
   return(
   {
     leftCol:region.region_info.bounding_box.left_col * width,
