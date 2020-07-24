@@ -102,7 +102,7 @@ calculateFaceLocation = (data)=>{
       .then(count=>{
         this.setState(Object.assign(this.state.user, {entries:count}))
         })
-         .catch(res.status(400).json('error'))
+         .catch(console.log)
         }
       this.displayFaceBox(this.calculateFaceLocation(response))
       })
