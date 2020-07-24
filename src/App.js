@@ -89,7 +89,7 @@ calculateFaceLocation = (data)=>{
   })
       .then(response => response.json())
       .then(response=>{
-        if (response){
+        if (response!="unable to work with API"){
             fetch(' https://damp-sea-30110.herokuapp.com/image', {
             method: 'put', 
             headers: {'Content-Type': 'application/json'},
