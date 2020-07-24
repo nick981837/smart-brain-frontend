@@ -27,7 +27,7 @@ const particlesOption = {
 const initialState= {
       input: '',
       imageUrl:'',
-      box: {},
+      boxAll: [],
       route: 'signin',
       isSignedIn: false,
       user:{
@@ -58,20 +58,25 @@ class App extends Component {
 
 
 calculateFaceLocation = (data)=>{
-  const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+  const clarifaiFaceAll = data.outputs[0].data.regions;
   const image = document.getElementById('inputimage');
   const width = Number(image.width);
   const height = Number(image.height);
-  return{
-    leftCol:clarifaiFace.left_col * width,
-    topRow: clarifaiFace.top_row * height,
-    rightCol: width - (clarifaiFace.right_col * width),
-    bottomRow: height -(clarifaiFace.bottom_row * height)
+  const boxArr = clarifaiFace.map(region=>{
+  return(
+  {
+    leftCol:region.region_info.bounding_box.left_col * width,
+    topRow: region.region_info.bounding_box.top_row * height,
+    rightCol: width - (region.region_info.bounding_box.right_col * width),
+    bottomRow: height -(region.region_info.bounding_box.bottom_row * height)
   }
+  )
+});
+  return boxArr;
 }
 
-  displayFaceBox =(box)=>{
-  this.setState({box:box});
+  displayFaceBox =(boxAll)=>{
+  this.setState({boxAll:boxAll});
 }
 
   onInputChange =(event)=>{
@@ -120,7 +125,7 @@ calculateFaceLocation = (data)=>{
 
 
   render(){
-   const {isSignedIn, imageUrl, route, box} = this.state
+   const {isSignedIn, imageUrl, route, boxAll} = this.state
   return (
     <div className='App'>
      <Particles className='particles'
@@ -135,7 +140,7 @@ calculateFaceLocation = (data)=>{
          onInputChange={this.onInputChange} 
          onButtonSubmit={this.onButtonSubmit}
     />
-        <FaceRecognition box={box} imageUrl = {imageUrl} />
+        <FaceRecognition boxAll={boxAll} imageUrl = {imageUrl} />
     </div>
     :(
       route ==='signin'?
