@@ -87,9 +87,7 @@ calculateFaceLocation = (data)=>{
             input :this.state.input
     })
   })
-      .then(response => response.json()) 
-      .catch(res.status(400).json('please input picture'))
-
+      .then(response => response.json())
       .then(response=>{
         if (response){
             fetch(' https://damp-sea-30110.herokuapp.com/image', {
@@ -98,14 +96,13 @@ calculateFaceLocation = (data)=>{
             body: JSON.stringify({
             id :this.state.user.id
         })
-      
       })
 
       .then(response => response.json())
       .then(count=>{
         this.setState(Object.assign(this.state.user, {entries:count}))
         })
-         .catch(res.status(400).json('please input a picture'))
+         .catch(res.status(400).json('error'))
         }
       this.displayFaceBox(this.calculateFaceLocation(response))
       })
