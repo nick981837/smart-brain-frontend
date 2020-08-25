@@ -9,7 +9,7 @@ import Register from './components/Register/Register';
 import './App.css';
 import Particles from 'react-particles-js'
 
-//Parameter of background image
+//Set the parameters of background image
 const particlesOption = {
                 particles: {
                   number:{
@@ -42,7 +42,7 @@ class App extends Component {
     super();
     this.state= initialState;
         }
-
+//Loading user's data from back-end when in HomePage
   loadUser=(data)=>{
     this.setState({user:{
         id: data.id,
@@ -53,6 +53,7 @@ class App extends Component {
     }})
   }
 
+//Caculate all faces location 
 calculateFaceLocation = (data)=>{
   const clarifaiFaceAll = data.outputs[0].data.regions;
   const image = document.getElementById('inputimage');
@@ -74,12 +75,15 @@ calculateFaceLocation = (data)=>{
   displayFaceBox =(boxAll)=>{
   this.setState({boxAll:boxAll});
 }
-
+  
+//Update inputImage from ImageLinkForm
   onInputChange =(event)=>{
     this.setState({input: event.target.value});
   }
 
+  
   onButtonSubmit =()=>{
+//Send InputImage to back-end and detect faces by Clarifal Model
    this.setState({imageUrl: this.state.input});
           fetch(' https://damp-sea-30110.herokuapp.com/imageurl', {
             method: 'post', 
@@ -90,6 +94,7 @@ calculateFaceLocation = (data)=>{
   })
       .then(response => response.json())
       .then(response=>{
+//Update user's entries 
         if (response!="unable to work with API"){
             fetch(' https://damp-sea-30110.herokuapp.com/image', {
             method: 'put', 
@@ -105,11 +110,13 @@ calculateFaceLocation = (data)=>{
         })
          .catch(console.log)
         }
+//Get detection datas from back-end to display FaceBoxes
       this.displayFaceBox(this.calculateFaceLocation(response))
       })
       .catch(err => console.log(err));
   }
-
+  
+//Changeing Routes
   onRouteChange =(route)=>{
     if (route ==='signin'){
       this.setState(initialState)
@@ -134,18 +141,16 @@ calculateFaceLocation = (data)=>{
          <Rank name={this.state.user.name} entries={this.state.user.entries} />
          <ImageLinkForm 
          onInputChange={this.onInputChange} 
-         onButtonSubmit={this.onButtonSubmit}
-    />
+         onButtonSubmit={this.onButtonSubmit}/>
         <FaceRecognition boxAll={boxAll} imageUrl = {imageUrl} />
-    </div>
-    :(
+        </div>
+     :(
       route ==='signin'?
       <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
       :<Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
 )
   }
     </div>
-     
   );
 }
 }
