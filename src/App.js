@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
@@ -8,17 +7,16 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 import './App.css';
-import Particles from 'react-particles-js';
+import Particles from 'react-particles-js'
 
-
-
+//Parameter of background image
 const particlesOption = {
                 particles: {
                   number:{
                     value: 150,
                     density:{
-                      enable:true,
-                      value_area: 700
+                    enable:true,
+                    value_area: 700
                     }
                   }
                     }
@@ -45,7 +43,7 @@ class App extends Component {
     this.state= initialState;
         }
 
-  loadUser =(data)=>{
+  loadUser=(data)=>{
     this.setState({user:{
         id: data.id,
         name: data.name,
@@ -54,8 +52,6 @@ class App extends Component {
         joined: data.joined
     }})
   }
-
-
 
 calculateFaceLocation = (data)=>{
   const clarifaiFaceAll = data.outputs[0].data.regions;
